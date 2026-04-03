@@ -3,9 +3,68 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Nutri Scan</title>
+    <title>Nutri Scan | Recipe Finder</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Lato:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
-    <h1>Nutri-scan coming soon</h1>
+    <header id="main-header">
+      <div class="logo">
+        <span class="leaf-icon">🍏🍎🍃</span>
+        <h1>Nutri-scan coming soon</h1>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="#" class="active">Search</a></li>
+          <li><a href="#">Favorites</a></li>
+          <li><a href="#">List</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main class="container">
+      <aside class="search-filters">
+        <section>
+          <h2>Search Filters</h2>
+          <div class="search-box">
+            <input
+              type="text"
+              id="ingredient-input"
+              placeholder="Enter Ingredients (e.g., chicken, rice)"
+            />
+            <button id="search-btn">Find Recipes</button>
+          </div>
+        </section>
+        <section class="dietary-filters">
+          <h3>DIETARY FILTERS</h3>
+          <label><input type="checkbox" value="vegan" /> Vegan</label>
+          <label
+            ><input type="checkbox" value="gluten-free" /> Gluten-Free</label
+          >
+          <label><input type="checkbox" value="low-carb" /> Low-Carb</label>
+          <label><input type="checkbox" value="keto" /> Keto</label>
+          <label><input type="checkbox" value="dairy-free" /> Dairy-Free</label>
+        </section>
+
+        <section class="calorie-range">
+          <h3>MAX CALORIES</h3>
+          <input type="range" id="cal-range" min="100" max="2000" value="800" />
+          <span id="cal-value">800 cals</span>
+        </section>
+      </aside>
+      <section class="recipe-results">
+        <h2>RECIPE RESULTS</h2>
+        <div id="recipe-grid" class="grid">
+          <p>Enter ingredients to start scanning healthy meals...</p>
+        </div>
+      </section>
+    </main>
+    <footer id="main-footer">
+      <p>&copy; 2026 Nutri-Scan & Recipe Finder | Alejandro Pérez</p>
+    </footer>
+
+    <script type="module" src="js/main.js"></script>
   </body>
 </html>
