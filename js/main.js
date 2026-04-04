@@ -1,26 +1,27 @@
-// js/main.js
 import { getRecipesByIngredient } from "./modules/recipeServices.mjs";
+import { recipeCardTemplate } from "./modules/recipeTemplate.mjs";
 
 const searchBtn = document.querySelector("#search-btn");
 const ingredientInput = document.querySelector("#ingredient-input");
 const recipeGrid = document.querySelector("#recipe-grid");
 
-// Prueba de conexión inmediata
-console.log("Script cargado. Botón encontrado:", searchBtn);
+// Test my conexion
+console.log("Script loaded. Button found:", searchBtn);
 
 searchBtn.addEventListener("click", async () => {
   const query = ingredientInput.value;
-  console.log("Buscando ingrediente:", query); // Esto debe salir al hacer clic
+  console.log("Searching ingredients:", query);
 
   if (query) {
     try {
-      recipeGrid.innerHTML = "<p>🍎 Scanning recipes...</p>";
+      recipeGrid.innerHTML =
+        "<p>🍎 Searching delicious recipes or Scanning recipes...🍏</p>";
       const recipes = await getRecipesByIngredient(query);
 
-      console.log("Datos recibidos de Edamam:", recipes);
+      console.log("Recibing data of Edamam:", recipes);
       renderSimpleResults(recipes);
     } catch (error) {
-      console.error("Error en la búsqueda:", error);
+      console.error("Error in searching:", error);
     }
   } else {
     alert("Please enter an ingredient first");
@@ -30,13 +31,11 @@ searchBtn.addEventListener("click", async () => {
 function renderSimpleResults(recipes) {
   recipeGrid.innerHTML = "";
   if (recipes.length === 0) {
-    recipeGrid.innerHTML = "<p>No recipes found. Try again!</p>";
+    recipeGrid.innerHTML =
+      "<p>No recipes found. Try again with another ingredient!</p>";
     return;
   }
 
-  recipes.forEach((hit) => {
-    const p = document.createElement("p");
-    p.textContent = `🍏 ${hit.recipe.label}`;
-    recipeGrid.appendChild(p);
-  });
+  const htmlCards = recipes.map((hit) => recipeCardTemplate(hit)).join("");
+  recipeGrid.innerHTML = htmlCards;
 }

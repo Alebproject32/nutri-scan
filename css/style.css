@@ -1,4 +1,3 @@
-/* Variables de identidad gráfica (Outcome #39) */
 :root {
   --primary-green: #4caf50;
   --clean-white: #ffffff;
@@ -61,17 +60,17 @@ nav a.active {
   border-bottom: 2px solid var(--primary-green);
 }
 
-/* Layout Principal con CSS Grid (Outcome #24) */
+/* Main Layout */
 .container {
   display: grid;
-  grid-template-columns: 300px 1fr; /* Barra lateral fija, resultados flexibles */
+  grid-template-columns: 250px 1fr;
   gap: 30px;
-  padding: 40px 5%;
-  max-width: 1400px;
+  padding: 20px;
+  max-width: 1200px;
   margin: 0 auto;
 }
 
-/* Barra Lateral */
+/* Aside Bar */
 .search-filters {
   background-color: var(--clean-white);
   padding: 20px;
@@ -117,12 +116,28 @@ nav a.active {
   cursor: pointer;
 }
 
-/* Rejilla de Recetas (Outcome #24) */
-.recipe-grid {
+/* Grid of recipes */
+#recipe-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 20px;
-  margin-top: 20px;
+  padding: 20px 0;
+}
+
+.recipe-card {
+  border: 1px solid #eee;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  font-size: 0.9rem;
+}
+
+.recipe-image img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
 }
 
 /* Footer */
@@ -134,17 +149,20 @@ nav a.active {
   margin-top: 40px;
 }
 
-/* --- RESPONSIVE DESIGN (MÓVIL) --- */
+/* --- RESPONSIVE DESIGN (Mobile) --- */
+/* I made several trying to fix complete */
 
 @media (max-width: 768px) {
-  /* 1. Ajuste del Layout: Cambiamos de 2 columnas a 1 sola columna */
+  /* 1. Layout */
   .container {
+    display: grid;
     grid-template-columns: 1fr;
-    padding: 20px 3%; /* Menos margen lateral en móvil */
+    padding: 20px 3%;
     gap: 20px;
+    margin: 0 auto;
   }
 
-  /* 2. Header: Apilamos el logo y el menú si no caben */
+  /* 2. Header */
   #main-header {
     flex-direction: column;
     text-align: center;
@@ -157,20 +175,56 @@ nav a.active {
     font-size: 0.9rem;
   }
 
-  /* 3. Filtros: Ocupan todo el ancho */
+  /* 3. Filters */
   .search-filters {
     width: 100%;
     box-shadow: none;
     border: 1px solid #ddd;
   }
 
-  /* 4. Grid de Recetas: Forzamos 1 o 2 columnas según el tamaño */
-  .recipe-grid {
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-    gap: 15px;
+  /* 4. Grid of recipes*/
+  #recipe-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 20px;
+    padding: 20px 0;
   }
 
-  /* 5. Inputs y Botones: Más grandes para facilitar el toque con el dedo */
+  .recipe-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  .recipe-card:hover {
+    transform: translateY(-5px);
+  }
+
+  .recipe-image img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+  }
+
+  .recipe-content {
+    padding: 15px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .recipe-content h3 {
+    font-size: 1.1rem;
+    margin: 10px 0;
+    color: #2c3e50;
+  }
+  /* 5. Inputs and Buttons */
   .search-box input,
   #search-btn {
     height: 48px;
