@@ -1,9 +1,12 @@
 import { getRecipesByIngredient } from "./modules/recipeServices.mjs";
 import { recipeCardTemplate } from "./modules/recipeTemplate.mjs";
+import { addToFavorites } from "./modules/favorites.mjs";
+import { getFavorites } from "./modules/favorites.mjs";
 
 const searchBtn = document.querySelector("#search-btn");
 const ingredientInput = document.querySelector("#ingredient-input");
 const recipeGrid = document.querySelector("#recipe-grid");
+const favoritesLink = document.querySelector("#favorites-link");
 
 // Test my conexion
 console.log("Script loaded. Button found:", searchBtn);
@@ -18,7 +21,7 @@ searchBtn.addEventListener("click", async () => {
         "<p>🍎 Searching delicious recipes or Scanning recipes...🍏</p>";
       const recipes = await getRecipesByIngredient(query);
 
-      console.log("Recibing data of Edamam:", recipes);
+      console.log("Receiving data from API:", recipes);
       renderSimpleResults(recipes);
     } catch (error) {
       console.error("Error in searching:", error);
@@ -39,3 +42,34 @@ function renderSimpleResults(recipes) {
   const htmlCards = recipes.map((hit) => recipeCardTemplate(hit)).join("");
   recipeGrid.innerHTML = htmlCards;
 }
+
+recipeGrid.addEventListener("click", (e) => {
+  if (e.target.classList.contains("save-btn")) {
+    try {
+      const recipeData = JSON.parse(e.target.dataset.recipe);
+      addToFavorites(recipeData);
+      e.target.textContent = "❤️ Saved";
+      e.target.style.backgroundColor = "#e74c3c";
+    } catch (error) {
+      console.error("Error parsing recipe data:", error);
+    }
+  }
+});
+
+favoritesLink.addEventListener("click", (e) => {
+  e.preventDefault();
+
+  const savedRecipes = getFavorites();
+
+  document.querySelector(".recipe-results h2").textContent = "YOUR FAVORITES";
+
+  const formattedFavorites = savedRecipes.map((recipe) => ({ recipe }));
+
+  renderSimpleResults(formattedFavorites);
+
+  //Feedback
+  if (savedRecipes.length === 0) {
+    recipeGrid.innerHTML =
+      "<p>You haven't saved any recipes yet. Start searching and click ⭐!</p>";
+  }
+});
