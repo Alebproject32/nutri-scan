@@ -20,3 +20,11 @@ export function addToFavorites(recipe) {
 export function getFavorites() {
   return getLocalStorage(FAVORITES_KEY);
 }
+
+//Delete or remove
+export function removeFromFavorites(recipeLabel) {
+  let favorites = getLocalStorage(FAVORITES_KEY);
+
+  favorites = favorites.filter((fav) => fav.label !== recipeLabel);
+  setLocalStorage(FAVORITES_KEY, favorites);
+}

@@ -7,8 +7,7 @@ export function recipeCardTemplate(hit) {
 
   const healthLabels = recipe.healthLabels.slice(0, 3).join(", ");
 
-  // Change the objeto to string for save in an atribute calling 'data'
-  // Now, I am using .replace(/'/g, "&apos;") to avoid break HTML
+  // Convert to string
   const recipeString = JSON.stringify(recipe).replace(/'/g, "&apos;");
 
   return `
@@ -35,8 +34,13 @@ export function recipeCardTemplate(hit) {
                     <a href="${recipe.url}" target="_blank" rel="noopener noreferrer" class="view-recipe-btn">
                         View Recipe
                     </a>
+                    
                     <button class="save-btn" data-recipe='${recipeString}'>
                         ⭐ Favorite
+                    </button>
+
+                    <button class="delete-btn" data-label="${recipe.label}">
+                        🗑️ Remove
                     </button>
                 </div>
             </div>
