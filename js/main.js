@@ -15,24 +15,39 @@ const favoritesLink = document.querySelector("#favorites-link");
 console.log("Script loaded. Button found:", searchBtn);
 
 searchBtn.addEventListener("click", async () => {
-  const query = ingredientInput.value;
+  const query = ingredientInput.value.trim();
+  ingredientInput.classList.remove("input-error");
   console.log("Searching ingredients:", query);
   recipeGrid.classList.remove("favorites-mode");
   recipeGrid.classList.add("search-mode");
 
-  if (query) {
-    try {
-      recipeGrid.innerHTML =
-        "<p>🍎 Searching delicious recipes or Scanning recipes...🍏</p>";
-      const recipes = await getRecipesByIngredient(query);
+  if (!query) {
+    ingredientInput.classList.add("input-error");
+    alert("Please enter an ingredient to start searching 🍎");
+    return;
+  }
 
-      console.log("Receiving data from API:", recipes);
-      renderSimpleResults(recipes);
-    } catch (error) {
-      console.error("Error in searching:", error);
-    }
-  } else {
-    alert("Please enter an ingredient first");
+  if (query.length < 3) {
+    ingredientInput.classList.add("input-error");
+    alert("The ingredient name is too short. Try at least 3 characters.");
+    return;
+  }
+
+  console.log("Searching ingredients:", query);
+  recipeGrid.classList.remove("favorites-mode");
+  recipeGrid.classList.add("search-mode");
+
+  try {
+    recipeGrid.innerHTML =
+      "<p>🍎 Searching delicious recipes or Scanning recipes...🍏</p>";
+    const recipes = await getRecipesByIngredient(query);
+
+    console.log("Receiving data from API:", recipes);
+    renderSimpleResults(recipes);
+  } catch (error) {
+    console.error("Error in searching:", error);
+    recipeGrid.innerHTML =
+      "<p>❌ Something went wrong. Please try again later.</p>";
   }
 });
 
