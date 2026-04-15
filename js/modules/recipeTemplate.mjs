@@ -31,8 +31,9 @@ export function recipeCardTemplate(hit) {
                 </div>
 
                 <div class="recipe-actions">
+                    <button class="info-btn" data-recipe='${recipeString}'> 📊 Nutrients </button>
                     <a href="${recipe.url}" target="_blank" rel="noopener noreferrer" class="view-recipe-btn">
-                        View Recipe
+                       📖 View Recipe
                     </a>
                     
                     <button class="save-btn" data-recipe='${recipeString}'>
